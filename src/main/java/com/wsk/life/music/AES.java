@@ -1,7 +1,11 @@
 package com.wsk.life.music;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Decoder;
+//import sun.misc.BASE64Encoder;
+
+import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -32,7 +36,12 @@ public class AES {
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
         byte[] encrypted = cipher.doFinal(sSrc.getBytes());
 
-        return new BASE64Encoder().encode(encrypted);//此处使用BASE64做转码功能，同时能起到2次加密的作用。
+//        return new BASE64Encoder().encode(encrypted);//此处使用BASE64做转码功能，同时能起到2次加密的作用。
+
+        //Base64 encode the byte array
+        Base64.Encoder encoder = Base64.getEncoder ();
+        //Return Base64 encoded byte array string
+        return encoder.encodeToString ( encrypted );
     }
 
     // 解密
@@ -54,7 +63,11 @@ public class AES {
             IvParameterSpec iv = new IvParameterSpec("0102030405060708"
                     .getBytes());
             cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-            byte[] encrypted1 = new BASE64Decoder().decodeBuffer(sSrc);//先用base64解密
+//            byte[] encrypted1 = new BASE64Decoder().decodeBuffer(sSrc);//先用base64解密
+            //Base64 decode to the byte array
+            Base64.Decoder decodercoder = Base64.getDecoder();
+
+            byte[] encrypted1 = decodercoder.decode(sSrc);
             try {
                 byte[] original = cipher.doFinal(encrypted1);
                 return new String(original);

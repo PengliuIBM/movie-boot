@@ -1,7 +1,10 @@
 package com.wsk.life.tool;
 
-import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Encoder;
 
+import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,8 +35,13 @@ public class BaseImg64 {
             e.printStackTrace();
         }
         // 对字节数组Base64编码
-        BASE64Encoder encoder = new BASE64Encoder();
-        // 返回Base64编码过再URLEncode的字节数组字符串
-        return URLEncoder.encode(encoder.encode(data));
+//        BASE64Encoder encoder = new BASE64Encoder();
+//        // 返回Base64编码过再URLEncode的字节数组字符串
+//        return URLEncoder.encode(encoder.encode(data));
+
+        //Base64 encode the byte array
+        Base64.Encoder encoder = Base64.getEncoder ();
+        //Return Base64 encoded byte array string
+        return URLEncoder.encode(encoder.encodeToString ( data ));
     }
 }

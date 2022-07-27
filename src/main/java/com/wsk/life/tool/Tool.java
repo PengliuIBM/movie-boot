@@ -5,7 +5,11 @@ import com.baidu.aip.imagecensor.AipImageCensor;
 import com.wsk.life.tool.bean.Baidu;
 import net.coobird.thumbnailator.Thumbnails;
 import org.json.JSONObject;
-import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Encoder;
+
+import java.net.URLEncoder;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 
 import java.io.*;
 import java.security.MessageDigest;
@@ -142,8 +146,13 @@ public class Tool {
         String result = "";
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
-            BASE64Encoder base64Encoder = new BASE64Encoder();
-            result = base64Encoder.encode(md5.digest(str.getBytes("UTF-8")));
+//            BASE64Encoder base64Encoder = new BASE64Encoder();
+//            result = base64Encoder.encode(md5.digest(str.getBytes("UTF-8")));
+
+            //Base64 encode the byte array
+            Base64.Encoder encoder = Base64.getEncoder ();
+            //Return Base64 encoded byte array string
+            result = encoder.encodeToString(md5.digest(str.getBytes("UTF-8")));
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
